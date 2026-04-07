@@ -1,0 +1,7 @@
+{
+    "admin": {
+        "email": "admin@vetdemo.test",
+        "password": "password",
+        "role": "admin"
+    }
+}

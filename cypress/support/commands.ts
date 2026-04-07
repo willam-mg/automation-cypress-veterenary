@@ -35,3 +35,33 @@
 //     }
 //   }
 // }
+export function registerCommands() {
+    Cypress.Commands.add('login', () => {
+        cy.env(['email', 'password']).then(({ email, password }) => {
+            if (!email || !password) {
+                throw new Error('Missing environment vars: email or password');
+            }
+
+            cy.visit('/login');
+
+            cy.get('input[formcontrolname="email"]')
+                .should('be.visible')
+                .clear()
+                .type(email)
+                .should('have.value', email);
+
+            cy.get('input[formcontrolname="password"]')
+                .should('be.visible')
+                .clear()
+                .type(password)
+                .should('have.value', password);
+
+            cy.get('button[type="submit"]')
+                .should('be.visible')
+                .and('not.be.disabled')
+                .click();
+
+            cy.url().should('include', '/dashboard');
+        });
+    });
+}
