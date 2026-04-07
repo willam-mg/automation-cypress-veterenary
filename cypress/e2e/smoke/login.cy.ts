@@ -3,7 +3,7 @@ import { registerCommands } from '../../support/commands';
 registerCommands();
 
 describe('Authentification', () => {
-    it('login', () => {
+    it('@smoke login', () => {
         cy.login()
     });
 })

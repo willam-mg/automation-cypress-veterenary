@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+const { plugin: cypressGrepPlugin } = require('@cypress/grep/plugin')
 
 export default defineConfig({
   e2e: {
@@ -18,8 +19,13 @@ export default defineConfig({
         ...config.env,
         ...envConfig
       };
+      
+      cypressGrepPlugin(config);
 
       return config;
     },
+  },
+  env: {
+    grepFilterSpecs: true,
   },
 });

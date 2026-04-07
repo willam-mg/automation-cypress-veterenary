@@ -16,6 +16,8 @@
     "cypress": "^15.13.0"
   },
   "devDependencies": {
+    "@cypress/grep": "^6.0.0",
+    "@faker-js/faker": "^10.4.0",
     "typescript": "5.9"
   }
 }
