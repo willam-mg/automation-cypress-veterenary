@@ -17,48 +17,72 @@ export class CreateVeterinarianPage {
     fillFirstName(firstName: string): void {
         this.elements.firstNameInput()
             .should('be.visible')
-            .clear()
-            .type(firstName)
+            .clear();
+
+        this.elements.firstNameInput()
+            .type(firstName);
+
+        this.elements.firstNameInput()
             .should('have.value', firstName);
     }
 
     fillLastName(lastName: string): void {
         this.elements.lastNameInput()
             .should('be.visible')
-            .clear()
-            .type(lastName)
+            .clear();
+
+        this.elements.lastNameInput()
+            .type(lastName);
+
+        this.elements.lastNameInput()
             .should('have.value', lastName);
     }
 
     fillEmail(email: string): void {
         this.elements.emailInput()
             .should('be.visible')
-            .clear()
-            .type(email)
+            .clear();
+
+        this.elements.emailInput()
+            .type(email);
+
+        this.elements.emailInput()
             .should('have.value', email);
     }
 
     fillPhone(phone: string): void {
         this.elements.phoneInput()
             .should('be.visible')
-            .clear()
-            .type(phone)
+            .clear();
+
+        this.elements.phoneInput()
+            .type(phone);
+
+        this.elements.phoneInput()
             .should('have.value', phone);
     }
 
     fillSpecialty(specialty: string): void {
         this.elements.specialtyInput()
             .should('be.visible')
-            .clear()
-            .type(specialty)
+            .clear();
+
+        this.elements.specialtyInput()
+            .type(specialty);
+
+        this.elements.specialtyInput()
             .should('have.value', specialty);
     }
 
     fillLicenseNumber(licenseNumber: string): void {
         this.elements.licenseNumberInput()
             .should('be.visible')
-            .clear()
-            .type(licenseNumber)
+            .clear();
+
+        this.elements.licenseNumberInput()
+            .type(licenseNumber);
+
+        this.elements.licenseNumberInput()
             .should('have.value', licenseNumber);
     }
 

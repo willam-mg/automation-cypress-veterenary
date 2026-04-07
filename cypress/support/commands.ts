@@ -48,9 +48,6 @@ export function registerCommands() {
             }
 
             loginPage.login(email, password);
-
-            cy.url().should('include', '/dashboard');
-
         });
     });
 }

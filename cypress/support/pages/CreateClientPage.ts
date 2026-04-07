@@ -7,58 +7,83 @@ export class CreateClientPage {
         documentInput: () => cy.get('input[data-testid="client-document"]'),
         addressInput: () => cy.get('input[formcontrolname="address"], textarea[formcontrolname="address"]'),
         inputPhoto: () => cy.get('input[type="file"]'),
+        textAreaNotes: () => cy.get('textarea[formcontrolname="notes"]'),
         submitButton: () => cy.get('button[data-testid="client-submit"], button[type="submit"]'),
     };
 
     visit(): void {
-        cy.visit('/clients/create');
+        cy.visit('/clients');
     }
 
     fillFirstName(firstName: string): void {
         this.elements.firstNameInput()
             .should('be.visible')
-            .clear()
-            .type(firstName)
-            .should('have.value', name);
+            .clear();
+
+        this.elements.firstNameInput()
+            .type(firstName);
+
+        this.elements.firstNameInput()
+            .should('have.value', firstName);
     }
     
     fillLastName(lastName: string): void {
         this.elements.lastNameInput()
             .should('be.visible')
-            .clear()
-            .type(lastName)
-            .should('have.value', name);
+            .clear();
+
+        this.elements.lastNameInput()
+            .type(lastName);
+
+        this.elements.lastNameInput()
+            .should('have.value', lastName);
     }
 
     fillEmail(email: string): void {
         this.elements.emailInput()
             .should('be.visible')
-            .clear()
-            .type(email)
+            .clear();
+
+        this.elements.emailInput()
+            .type(email);
+
+        this.elements.emailInput()
             .should('have.value', email);
     }
 
     fillPhone(phone: string): void {
         this.elements.phoneInput()
             .should('be.visible')
-            .clear()
-            .type(phone)
+            .clear();
+
+        this.elements.phoneInput()
+            .type(phone);
+
+        this.elements.phoneInput()
             .should('have.value', phone);
     }
     
     fillDocument(document: string): void {
         this.elements.documentInput()
             .should('be.visible')
-            .clear()
-            .type(document)
+            .clear();
+
+        this.elements.documentInput()
+            .type(document);
+
+        this.elements.documentInput()
             .should('have.value', document);
     }
 
     fillAddress(address: string): void {
         this.elements.addressInput()
             .should('be.visible')
-            .clear()
-            .type(address)
+            .clear();
+
+        this.elements.addressInput()
+            .type(address);
+
+        this.elements.addressInput()
             .should('have.value', address);
     }
 
@@ -66,6 +91,18 @@ export class CreateClientPage {
         this.elements.inputPhoto()
             .should('exist')
             .selectFile(photoPath, { force: true });
+    }
+    
+    setNotes(notes: string): void {
+        this.elements.textAreaNotes()
+            .should('be.visible')
+            .clear();
+
+        this.elements.textAreaNotes()
+            .type(notes);
+
+        this.elements.textAreaNotes()
+            .should('have.value', notes);
     }
 
     submit(): void {
@@ -82,7 +119,8 @@ export class CreateClientPage {
         phone: string,
         address?: string,
         document?: string,
-        photo?: string
+        photo?: string,
+        notes?: string,
     ): void {
         this.visit();
         this.fillFirstName(firstName);
@@ -100,6 +138,10 @@ export class CreateClientPage {
         
         if (photo) {
             this.setPhoto(photo);
+        }
+
+        if (notes) {
+            this.setNotes(notes);
         }
 
         this.submit();

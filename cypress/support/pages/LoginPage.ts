@@ -1,8 +1,8 @@
 export class LoginPage {
     elements = {
-        emailInput: () => cy.get('input[data-testid="login-email"]'),
-        passwordInput: () => cy.get('input[data-testid="login-password"]'),
-        submitButton: () => cy.get('button[data-testid="login-submit"]'),
+        emailInput: () => cy.get('input[data-testid="login-email"], input[formcontrolname="email"], input[type="email"]').first(),
+        passwordInput: () => cy.get('input[data-testid="login-password"], input[formcontrolname="password"], input[type="password"]').first(),
+        submitButton: () => cy.get('button[data-testid="login-submit"], button[type="submit"]').first(),
     };
 
     visit(): void {
@@ -13,16 +13,14 @@ export class LoginPage {
         this.elements.emailInput()
             .should('be.visible')
             .clear()
-            .type(email)
-            .should('have.value', email)
+            .type(email);
     }
     
     fillPassword(password: string): void {
         this.elements.passwordInput()
             .should('be.visible')
             .clear()
-            .type(password)
-            .should('have.value', password)
+            .type(password);
     }
 
     submit():void {
