@@ -12,8 +12,4 @@ describe('List next appointments', () => {
         
         cy.get('table tbody tr').should('have.length.greaterThan', 0);
     })
-
-
-
-
 })
