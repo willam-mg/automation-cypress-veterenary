@@ -1,5 +1,5 @@
 import { VeterinarianGenerator } from "../../support/generators/veterinarian.generator";
-import { CreateClientPage } from "../../support/pages/CreateClientPage";
+import { CreateClientPage } from "../../support/pages/client-create.page";
 import { ClientGenerator } from "../../support/generators/client.generator";
 
 describe('Create Client', () => {

@@ -1,5 +1,5 @@
 import { generateUser } from "../../support/generators/user.generator";
-import { RegisterUserPage } from "../../support/pages/RegisterUserPage";
+import { RegisterUserPage } from "../../support/pages/user-register.page";
 
 describe('Create user', ()=>{
     it('whould register with success', () => {
