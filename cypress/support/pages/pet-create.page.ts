@@ -1,148 +1,146 @@
+import { random } from "cypress/types/lodash";
+
 export class PetCreatePage {
     elements = {
-        firstNameInput: () => cy.get('input[data-testid="client-first-name"]'),
-        lastNameInput: () => cy.get('input[data-testid="client-last-name"]'),
-        emailInput: () => cy.get('input[data-testid="client-email"]'),
-        phoneInput: () => cy.get('input[data-testid="client-phone"]'),
-        documentInput: () => cy.get('input[data-testid="client-document"]'),
-        addressInput: () => cy.get('input[formcontrolname="address"], textarea[formcontrolname="address"]'),
+        buttonOpenSelectClient: () => cy.contains('button', /Seleccionar cliente/i),
+        tableSelectClient: () => cy.contains('.modal-card', 'Seleccionar cliente').find('table'),
+        inputName: () => cy.get('input[data-testid="pet-name"]'),
+        selectSpecies: () => cy.get('select[formcontrolname="species"]'),
+        inputBreed: () => cy.get('input[formcontrolname="breed"]'),
+        selectSex: () => cy.get('select[formcontrolname="sex"]'),
+        inputBirthDate: () => cy.get('input[formcontrolname="birth_date"]'),
+        inputWeight: () => cy.get('input[formcontrolname="weight"]'),
+        inputColor: () => cy.get('input[formcontrolname="color"]'),
+        inputMicrochipNumber: () => cy.get('input[formcontrolname="microchip_number"]'),
         inputPhoto: () => cy.get('input[type="file"]'),
-        textAreaNotes: () => cy.get('textarea[formcontrolname="notes"]'),
-        submitButton: () => cy.get('button[data-testid="client-submit"], button[type="submit"]'),
+        textareaAllergies: () => cy.get('textarea[formcontrolname="allergies"]'),
+        textareaNotes: () => cy.get('textarea[formcontrolname="notes"]'),
+        submitButton: () => cy.get('button[data-testid="pet-submit"], button[type="submit"]'),
     };
 
     visit(): void {
-        cy.visit('/clients');
+        cy.visit('/pets');
     }
 
-    fillFirstName(firstName: string): void {
-        this.elements.firstNameInput()
-            .should('be.visible')
-            .clear();
+    selectClient(): void {
+        cy.intercept('GET', '**/clients*').as('clientsRequest');
 
-        this.elements.firstNameInput()
-            .type(firstName);
+        this.elements.buttonOpenSelectClient().click();
 
-        this.elements.firstNameInput()
-            .should('have.value', firstName);
-    }
-    
-    fillLastName(lastName: string): void {
-        this.elements.lastNameInput()
-            .should('be.visible')
-            .clear();
+        cy.wait("@clientsRequest")
+            .its('response.statusCode')
+            .should('eq', 200);
 
-        this.elements.lastNameInput()
-            .type(lastName);
+        this.elements.tableSelectClient()
+            .find('tbody tr')
+            .then(($rows) => {
+                const randomIndex = Math.floor(Math.random() * $rows.length);
 
-        this.elements.lastNameInput()
-            .should('have.value', lastName);
+                cy.wrap($rows)
+                    .eq(randomIndex)
+                    .within(() => {
+                        cy.contains('button', /seleccionar/i).click();
+                    });
+            })
     }
 
-    fillEmail(email: string): void {
-        this.elements.emailInput()
-            .should('be.visible')
-            .clear();
-
-        this.elements.emailInput()
-            .type(email);
-
-        this.elements.emailInput()
-            .should('have.value', email);
+    fillName(name: string): void {
+        this.elements.inputName()
+            .clear()
+            .type(name);
     }
 
-    fillPhone(phone: string): void {
-        this.elements.phoneInput()
-            .should('be.visible')
-            .clear();
-
-        this.elements.phoneInput()
-            .type(phone);
-
-        this.elements.phoneInput()
-            .should('have.value', phone);
-    }
-    
-    fillDocument(document: string): void {
-        this.elements.documentInput()
-            .should('be.visible')
-            .clear();
-
-        this.elements.documentInput()
-            .type(document);
-
-        this.elements.documentInput()
-            .should('have.value', document);
+    selectSpecie(specie: string): void {
+        this.elements.selectSpecies()
+            .select(specie);
     }
 
-    fillAddress(address: string): void {
-        this.elements.addressInput()
-            .should('be.visible')
-            .clear();
-
-        this.elements.addressInput()
-            .type(address);
-
-        this.elements.addressInput()
-            .should('have.value', address);
+    fillBreed(breed: string): void {
+        this.elements.inputBreed()
+            .clear()
+            .type(breed);
     }
 
-    setPhoto(photoPath: string): void {
+    selectSex(sex: string): void {
+        this.elements.selectSex()
+            .select(sex);
+    }
+
+    setBirthDate(birthDate: string): void {
+        this.elements.inputBirthDate()
+            .should('exist')
+            .invoke('val', birthDate)
+            .trigger('change');
+    }
+
+    fillWeight(weight: string): void {
+        this.elements.inputWeight()
+            .clear()
+            .type(weight);
+    }
+
+    fillColor(color: string): void {
+        this.elements.inputColor()
+            .clear()
+            .type(color);
+    }
+
+    fillMicrochipNumber(microchipNumber: string): void {        
+        this.elements.inputMicrochipNumber()
+            .clear()
+            .type(microchipNumber);
+    }   
+
+    setPhoto(photo: string): void {
         this.elements.inputPhoto()
             .should('exist')
-            .selectFile(photoPath, { force: true });
+            .selectFile(photo, {force: true});
+    }
+
+    fillAllergies(allergies: string): void {
+        this.elements.textareaAllergies()
+            .clear()
+            .type(allergies)
     }
     
-    setNotes(notes: string): void {
-        this.elements.textAreaNotes()
-            .should('be.visible')
-            .clear();
-
-        this.elements.textAreaNotes()
-            .type(notes);
-
-        this.elements.textAreaNotes()
-            .should('have.value', notes);
+    fillNotes(notes: string): void {
+        this.elements.textareaNotes()
+            .clear()
+            .type(notes)
     }
 
     submit(): void {
         this.elements.submitButton()
-            .should('be.visible')
-            .and('not.be.disabled')
             .click();
     }
 
-    create(
-        firstName: string,
-        lastName: string,
-        email: string,
-        phone: string,
-        address?: string,
-        document?: string,
-        photo?: string,
-        notes?: string,
+    register(
+        name,
+        specie,
+        breed,
+        sex,
+        birthDate,
+        weight,
+        color,
+        microchipNumber,
+        photo,
+        allergies,
+        notes
     ): void {
         this.visit();
-        this.fillFirstName(firstName);
-        this.fillLastName(lastName);
-        this.fillEmail(email);
-        this.fillPhone(phone);
 
-        if (address) {
-            this.fillAddress(address);
-        }
-        
-        if (document) {
-            this.fillDocument(document);
-        }
-        
-        if (photo) {
-            this.setPhoto(photo);
-        }
-
-        if (notes) {
-            this.setNotes(notes);
-        }
+        this.selectClient();
+        this.fillName(name);
+        this.selectSpecie(specie);
+        this.fillBreed(breed);
+        this.selectSex(sex);
+        this.setBirthDate(birthDate);
+        this.fillWeight(weight);
+        this.fillColor(color);
+        this.fillMicrochipNumber(microchipNumber);
+        this.setPhoto(photo);
+        this.fillAllergies(allergies);
+        this.fillNotes(notes);
 
         this.submit();
     }
