@@ -4,13 +4,12 @@ export class ClinicalRecordCreatePage {
         tableSelectPet: () => cy.contains('.modal-card', 'Seleccionar mascota').find('table'),
         buttonOpenSelectVeterinarian: () => cy.contains('button', /Seleccionar veterinario/i),
         tableSelectVeterinarian: () => cy.contains('.modal-card', 'Seleccionar veterinario').find('table'),
+        selectAppointmentId: () => cy.get('select[formcontrolname="appointment_id"]'),
         inputRecordDate: () => cy.get('input[data-testid="clinical-record-date"], input[formcontrolname="record_date"], input[formcontrolname="date"]').first(),
-        inputDiagnosis: () => cy.get('input[data-testid="clinical-record-diagnosis"], input[formcontrolname="diagnosis"], textarea[formcontrolname="diagnosis"]').first(),
-        textareaTreatment: () => cy.get('textarea[data-testid="clinical-record-treatment"], textarea[formcontrolname="treatment"], input[formcontrolname="treatment"]').first(),
-        textareaObservations: () => cy.get('textarea[data-testid="clinical-record-observations"], textarea[formcontrolname="observations"], textarea[formcontrolname="notes"]').first(),
+        textareaDiagnosis: () => cy.get('textarea[formcontrolname="diagnosis"]').first(),
+        textareaTreatment: () => cy.get('textarea[formcontrolname="treatment"]').first(),
+        textareaObservations: () => cy.get('textarea[formcontrolname="observations"]').first(),
         inputWeight: () => cy.get('input[data-testid="clinical-record-weight"], input[formcontrolname="weight"]').first(),
-        inputTemperature: () => cy.get('input[data-testid="clinical-record-temperature"], input[formcontrolname="temperature"]').first(),
-        inputNextVisitDate: () => cy.get('input[data-testid="clinical-record-next-visit-date"], input[formcontrolname="next_visit_date"]').first(),
         submitButton: () => cy.get('button[data-testid="clinical-record-submit"], button[type="submit"]').first(),
     };
 
@@ -64,13 +63,37 @@ export class ClinicalRecordCreatePage {
 
     setRecordDate(recordDate: string): void {
         this.elements.inputRecordDate()
-            .should('exist')
-            .invoke('val', recordDate)
-            .trigger('change');
+            .should('be.visible')
+            .focus()
+            .clear()
+            .type(recordDate, { force: true })
+            .blur();
+    }
+
+    selectAppintment(): void {
+        cy.intercept('**/appointments*').as('appointMentRequest');
+
+        cy.wait('@appointmentRequest')
+            .its('response.statusCode')
+            .should('eq', 200);
+
+        this.elements.selectAppointmentId()
+            .find('option')
+            .then(($options) => {
+                const validOptions = $options.filter((i, el) => el.value !== '');
+
+                const randomIndex = Math.floor(Math.random() * validOptions.length);
+
+                const value = Cypress.$(validOptions[randomIndex]).val() as string;
+
+                cy.log(`Seleccionando option: ${value}`);
+
+                this.elements.selectAppointmentId().select(value);
+            });
     }
 
     fillDiagnosis(diagnosis: string): void {
-        this.elements.inputDiagnosis()
+        this.elements.textareaDiagnosis()
             .clear()
             .type(diagnosis);
     }
@@ -93,19 +116,6 @@ export class ClinicalRecordCreatePage {
             .type(weight);
     }
 
-    fillTemperature(temperature: string): void {
-        this.elements.inputTemperature()
-            .clear()
-            .type(temperature);
-    }
-
-    setNextVisitDate(nextVisitDate: string): void {
-        this.elements.inputNextVisitDate()
-            .should('exist')
-            .invoke('val', nextVisitDate)
-            .trigger('change');
-    }
-
     submit(): void {
         this.elements.submitButton()
             .click();
@@ -117,8 +127,6 @@ export class ClinicalRecordCreatePage {
         treatment: string,
         observations: string,
         weight?: string,
-        temperature?: string,
-        nextVisitDate?: string
     ): void {
         this.visit();
 
@@ -131,14 +139,6 @@ export class ClinicalRecordCreatePage {
 
         if (weight) {
             this.fillWeight(weight);
-        }
-
-        if (temperature) {
-            this.fillTemperature(temperature);
-        }
-
-        if (nextVisitDate) {
-            this.setNextVisitDate(nextVisitDate);
         }
 
         this.submit();

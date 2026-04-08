@@ -8,7 +8,5 @@ export const ClinicalRecordGenerator = (): ClinicalRecord => {
         treatment: faker.lorem.sentence(),
         observations: faker.lorem.paragraph(),
         weight: faker.number.float({ min: 1, max: 50, fractionDigits: 1 }).toString(),
-        temperature: faker.number.float({ min: 36, max: 40, fractionDigits: 1 }).toString(),
-        nextVisitDate: faker.date.soon({ days: 30 }).toISOString().slice(0, 10),
     };
 };

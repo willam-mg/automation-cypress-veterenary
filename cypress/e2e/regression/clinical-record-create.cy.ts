@@ -14,8 +14,6 @@ describe('Clinical record create', () => {
             clinicalRecord.treatment,
             clinicalRecord.observations,
             clinicalRecord.weight,
-            clinicalRecord.temperature,
-            clinicalRecord.nextVisitDate
         );
 
         cy.get('.message.success')
