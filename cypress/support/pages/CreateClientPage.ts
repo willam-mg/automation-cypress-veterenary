@@ -1,9 +1,9 @@
 export class CreateClientPage {
     elements = {
-        firstNameInput: () => cy.get('input[formcontrolname="first_name"]'),
-        lastNameInput: () => cy.get('input[formcontrolname="last_name"]'),
-        emailInput: () => cy.get('input[formcontrolname="email"]'),
-        phoneInput: () => cy.get('input[formcontrolname="phone"]'),
+        firstNameInput: () => cy.get('input[data-testid="client-first-name"]'),
+        lastNameInput: () => cy.get('input[data-testid="client-last-name"]'),
+        emailInput: () => cy.get('input[data-testid="client-email"]'),
+        phoneInput: () => cy.get('input[data-testid="client-phone"]'),
         documentInput: () => cy.get('input[data-testid="client-document"]'),
         addressInput: () => cy.get('input[formcontrolname="address"], textarea[formcontrolname="address"]'),
         inputPhoto: () => cy.get('input[type="file"]'),

@@ -6,6 +6,6 @@ describe('Authentification', () => {
     it('@smoke login', () => {
         cy.login();
         
-        cy.url().should('include', '/dashboard');
+        cy.location('pathname').should('eq', '/dashboard');
     });
 })
