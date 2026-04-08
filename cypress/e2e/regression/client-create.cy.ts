@@ -21,6 +21,8 @@ describe('Create Client', () => {
             client.notes
         );
 
-        
+        cy.get('.message.success')
+            .should('be.visible')
+            .and('contain', 'Cliente creado.');
     })
 })

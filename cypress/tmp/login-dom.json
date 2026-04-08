@@ -1,0 +1,29 @@
+{
+  "inputs": [
+    {
+      "type": "email",
+      "name": null,
+      "formcontrolname": "email",
+      "datatestid": "login-email",
+      "placeholder": null,
+      "className": "ng-untouched ng-pristine ng-valid"
+    },
+    {
+      "type": "password",
+      "name": null,
+      "formcontrolname": "password",
+      "datatestid": "login-password",
+      "placeholder": null,
+      "className": "ng-untouched ng-pristine ng-valid"
+    }
+  ],
+  "buttons": [
+    {
+      "text": "Ingresar",
+      "type": "submit",
+      "datatestid": "login-submit",
+      "className": "primary-button"
+    }
+  ],
+  "body": "\n  <app-root ng-version=\"20.3.18\" _nghost-ng-c2730375941=\"\"><!--container--><div _ngcontent-ng-c2730375941=\"\" data-testid=\"app-shell\" class=\"shell\"><header _ngcontent-ng-c2730375941=\"\" class=\"topbar\"><div _ngcontent-ng-c2730375941=\"\" class=\"brand\"><span _ngcontent-ng-c2730375941=\"\" class=\"eyebrow\">Veterinary SPA</span><strong _ngcontent-ng-c2730375941=\"\">VetClinic Demo</strong></div><!--container--><nav _ngcontent-ng-c2730375941=\"\"><a _ngcontent-ng-c2730375941=\"\" routerlink=\"/login\" routerlinkactive=\"active\" href=\"/login\" class=\"active\">Login</a><a _ngcontent-ng-c2730375941=\"\" routerlink=\"/register\" routerlinkactive=\"active\" href=\"/register\">Registro</a></nav><!--container--></header><main _ngcontent-ng-c2730375941=\"\" class=\"content\"><router-outlet _ngcontent-ng-c2730375941=\"\"></router-outlet><app-login-page _nghost-ng-c1751753993=\"\"><section _ngcontent-ng-c1751753993=\"\" class=\"auth-shell\"><div _ngcontent-ng-c1751753993=\"\" class=\"panel auth-card\"><div _ngcontent-ng-c1751753993=\"\" class=\"panel-header\"><div _ngcontent-ng-c1751753993=\"\"><h1 _ngcontent-ng-c1751753993=\"\">Iniciar sesión</h1><p _ngcontent-ng-c1751753993=\"\" class=\"panel-subtitle\">Usuario demo: admin@vetdemo.test / password</p></div></div><!--container--><form _ngcontent-ng-c1751753993=\"\" novalidate=\"\" class=\"form-grid ng-untouched ng-pristine ng-valid\"><label _ngcontent-ng-c1751753993=\"\" class=\"form-field full\"><span _ngcontent-ng-c1751753993=\"\">Email</span><input _ngcontent-ng-c1751753993=\"\" type=\"email\" formcontrolname=\"email\" data-testid=\"login-email\" class=\"ng-untouched ng-pristine ng-valid\"></label><label _ngcontent-ng-c1751753993=\"\" class=\"form-field full\"><span _ngcontent-ng-c1751753993=\"\">Contraseña</span><input _ngcontent-ng-c1751753993=\"\" type=\"password\" formcontrolname=\"password\" data-testid=\"login-password\" class=\"ng-untouched ng-pristine ng-valid\"></label><div _ngcontent-ng-c1751753993=\"\" class=\"action-row\"><button _ngcontent-ng-c1751753993=\"\" type=\"submit\" data-testid=\"login-submit\" class=\"primary-button\"> Ingresar </button><a _ngcontent-ng-c1751753993=\"\" routerlink=\"/register\" class=\"secondary-button\" href=\"/register\">Crear cuenta</a></div></form></div></section></app-login-page><!--container--></main></div><!--container--></app-root>\n<script src=\"polyfills.js\" type=\"module\"></script><script src=\"main.js\" type=\"module\"></script>\n\n"
+}

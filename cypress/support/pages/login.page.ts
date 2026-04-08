@@ -14,15 +14,19 @@ export class LoginPage {
     fillEmail(email: string): void {
         this.elements.emailInput()
             .should('be.visible')
-            .clear()
-            .type(email);
+            .invoke('val', email)
+            .trigger('input')
+            .trigger('change')
+            .should('have.value', email);
     }
     
     fillPassword(password: string): void {
         this.elements.passwordInput()
             .should('be.visible')
-            .clear()
-            .type(password);
+            .invoke('val', password)
+            .trigger('input')
+            .trigger('change')
+            .should('have.value', password);
     }
 
     submit():void {
