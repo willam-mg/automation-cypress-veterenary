@@ -1,8 +1,10 @@
+import { LoginSelector } from "../selectors/login.selectors";
+
 export class LoginPage {
     elements = {
-        emailInput: () => cy.get('input[data-testid="login-email"], input[formcontrolname="email"], input[type="email"]').first(),
-        passwordInput: () => cy.get('input[data-testid="login-password"], input[formcontrolname="password"], input[type="password"]').first(),
-        submitButton: () => cy.get('button[data-testid="login-submit"], button[type="submit"]').first(),
+        emailInput: () => cy.get(LoginSelector.email).first(),
+        passwordInput: () => cy.get(LoginSelector.password).first(),
+        submitButton: () => cy.get(LoginSelector.submit).first(),
     };
 
     visit(): void {

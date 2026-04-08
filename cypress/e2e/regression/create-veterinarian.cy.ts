@@ -1,8 +1,5 @@
 import { VeterinarianGenerator } from "../../support/generators/veterinarian.generator";
 import { CreateVeterinarianPage } from "../../support/pages/CreateVeterinarianPage"
-import { registerCommands } from '../../support/commands';
-
-registerCommands();
 
 describe('Create Veterinarian', () => {
     it('@regression Should register as successfull', () => {

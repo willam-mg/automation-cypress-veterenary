@@ -1,7 +1,3 @@
-import { registerCommands } from '../../support/commands';
-
-registerCommands();
-
 describe('List next appointments', () => {
     it('Should load rows in the dashboard table', () => {
         cy.login();

@@ -1,7 +1,3 @@
-import {registerCommands} from '../../support/commands';
-
-registerCommands();
-
 describe('Navigation main menu links', () => {
     it('visit Dashboard', () => {
         cy.login();
