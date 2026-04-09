@@ -1,27 +1,26 @@
-const apiUrl:string = Cypress.env('apiUrl') as string;
-
 describe('Login API', () => {
-    it('should login successfully', () => {
-        const email = Cypress.env('email');
-        const password = Cypress.env('password');
+    it('@api should login successfully', () => {
 
-        if (!email || !password) {
-            throw new Error('Missing environment vars: email or password');
-        }
+        cy.env(['apiUrl', 'email', 'password']).then(({ apiUrl, email, password }) => {
 
-        cy.request({
-            method: 'POST',
-            url: `${apiUrl}/auth/login`,
-            body: {email, password}
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            
-            expect(response.body.data).to.exist;
-            expect(response.body.data.token).to.exist;
-            expect(response.body.data.user).to.exist;
-            expect(response.body.data.user.email).to.eq(email);
+            if (!apiUrl || !email || !password) {
+                throw new Error('Missing environment vars: apiUrl, email or password');
+            }
 
-            expect(response.body.message).to.eq('Inicio de sesión exitoso.');
+            cy.request({
+                method: 'POST',
+                url: `${apiUrl}/auth/login`,
+                body: { email, password }
+            }).then((response) => {
+                expect(response.status).to.eq(200);
+
+                expect(response.body.data).to.exist;
+                expect(response.body.data.token).to.exist;
+                expect(response.body.data.user).to.exist;
+                expect(response.body.data.user.email).to.eq(email);
+
+                expect(response.body.message).to.eq('Inicio de sesión exitoso.');
+            });
 
         });
 

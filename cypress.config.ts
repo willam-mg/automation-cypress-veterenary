@@ -2,6 +2,7 @@ import { defineConfig } from "cypress";
 const { plugin: cypressGrepPlugin } = require('@cypress/grep/plugin')
 
 export default defineConfig({
+  allowCypressEnv: false,
   e2e: {
     setupNodeEvents(on, config) {
 
