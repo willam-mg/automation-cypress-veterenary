@@ -1,27 +1,48 @@
 pipeline {
     agent any
 
-    parameters{
-        string(name: "SPEC", defaultValue: "cypress/e2e/**/**", description: "Ej:: cypress/e2e/*cy.ts")
-        choice(name: "BROWSER", choices: ['chrome', 'edge', 'firefox'], description: "Escoja un browser para ejecutar los tests")
+    parameters {
+        string(
+            name: 'SPEC',
+            defaultValue: 'cypress/e2e/**/*.cy.ts',
+            description: 'Ruta de los tests a ejecutar'
+        )
+        choice(
+            name: 'BROWSER',
+            choices: ['chrome', 'edge', 'firefox'],
+            description: 'Navegador para ejecutar Cypress'
+        )
     }
 
-    stages{
-        stage('Build'){
-            steps{
-                echo "Building application"
+    stages {
+        stage('Install dependencies') {
+            steps {
+                bat 'npm install'
             }
         }
-        stage("Testing"){
-            steps{
-                bat "npm i"
-                bat "npx cypress run --browser ${BROWSER} --spec ${SPEC}"
+
+        stage('Verify Cypress') {
+            steps {
+                bat 'npx cypress verify'
             }
         }
-        stage("Deploy"){
-            steps{
-                echo "Deploying the application"
+
+        stage('Run tests') {
+            steps {
+                bat "npx cypress run --browser ${params.BROWSER} --spec \"${params.SPEC}\""
             }
         }
-    } 
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'cypress/screenshots/**/*, cypress/videos/**/*', allowEmptyArchive: true
+        }
+        success {
+            echo 'Tests ejecutados correctamente'
+        }
+        failure {
+            echo 'Algunos tests fallaron'
+        }
+    }
 }
