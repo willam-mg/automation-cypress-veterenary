@@ -14,7 +14,9 @@ export default defineConfig({
         throw new Error(`No existe configuración para el entorno: ${envName}`);
       }
 
-      config.baseUrl = envConfig.baseUrl;
+      if (envConfig.baseUrl) {
+        config.baseUrl = envConfig.baseUrl;
+      }
 
       config.env = {
         ...config.env,

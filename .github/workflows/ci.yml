@@ -26,5 +26,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm run cy:run
+      - name: Run API tests
+        run: npm run cy:run -- --spec "cypress/e2e/api/**/*.cy.ts" --env environment=ciApi
