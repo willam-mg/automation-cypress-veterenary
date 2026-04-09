@@ -10,6 +10,8 @@ describe('List Clinical record', () => {
             .its('response.statusCode')
             .should('eq', 200);
 
+        cy.get('h1').should('contain', 'Historial clínico');
+
         cy.get('table tbody tr').should('have.length.greaterThan', 0);
     })
 })

@@ -1,5 +1,5 @@
 describe('Navigation main menu links', () => {
-    it('visit Dashboard', () => {
+    it('@smoke visit Dashboard', () => {
         cy.login();
         
         cy.visit('dashboard');
@@ -8,7 +8,7 @@ describe('Navigation main menu links', () => {
             .should('be.visible');
     })
 
-    it('visit clients', () => {
+    it('@smoke visit clients', () => {
         cy.login();
         
         cy.visit('clients');
@@ -17,7 +17,7 @@ describe('Navigation main menu links', () => {
             .should('be.visible');
     })
 
-    it('visit veterinarians', () => {
+    it('@smoke visit veterinarians', () => {
         cy.login();
         
         cy.visit('veterinarians');
@@ -26,7 +26,7 @@ describe('Navigation main menu links', () => {
             .should('be.visible');
     })
 
-    it('visit Pets', () => {
+    it('@smoke visit Pets', () => {
         cy.login();
         
         cy.visit('pets');
@@ -35,7 +35,7 @@ describe('Navigation main menu links', () => {
             .should('be.visible');
     })
 
-    it('visit appointments', () => {
+    it('@smoke visit appointments', () => {
         cy.login();
         
         cy.visit('appointments');
@@ -44,7 +44,7 @@ describe('Navigation main menu links', () => {
             .should('be.visible');
     })
     
-    it('visit clinical record', () => {
+    it('@smoke visit clinical record', () => {
         cy.login();
         
         cy.visit('clinical-records');

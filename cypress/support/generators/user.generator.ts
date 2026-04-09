@@ -6,7 +6,7 @@ export const generateUser = (): User => {
         name: faker.person.fullName(),
         email: faker.internet.email(),
         phone: faker.phone.number(),
-        role: faker.helpers.arrayElement(['admin', 'recepcionist', 'veterinarian']),
+        role: faker.helpers.arrayElement(['admin', 'receptionist', 'veterinarian']),
         password: faker.internet.password()
     };
 };
