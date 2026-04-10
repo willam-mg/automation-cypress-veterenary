@@ -1,7 +1,19 @@
 describe('Navigation main menu links', () => {
+    beforeEach(() => {
+        cy.env(['email', 'password']).then(({ email, password }) => {
+            cy.session(['navigation-smoke', email, password], () => {
+                cy.login();
+            }, {
+                validate() {
+                    cy.visit('dashboard');
+                    cy.contains('h1', 'Dashboard veterinario')
+                        .should('be.visible');
+                },
+            });
+        });
+    });
+
     it('@smoke visit Dashboard', () => {
-        cy.login();
-        
         cy.visit('dashboard');
 
         cy.contains('h1', 'Dashboard veterinario')
@@ -9,8 +21,6 @@ describe('Navigation main menu links', () => {
     })
 
     it('@smoke visit clients', () => {
-        cy.login();
-        
         cy.visit('clients');
 
         cy.contains('h1', 'Clientes')
@@ -18,8 +28,6 @@ describe('Navigation main menu links', () => {
     })
 
     it('@smoke visit veterinarians', () => {
-        cy.login();
-        
         cy.visit('veterinarians');
 
         cy.contains('h1', 'Veterinarios')
@@ -27,8 +35,6 @@ describe('Navigation main menu links', () => {
     })
 
     it('@smoke visit Pets', () => {
-        cy.login();
-        
         cy.visit('pets');
 
         cy.contains('h1', 'Mascotas')
@@ -36,8 +42,6 @@ describe('Navigation main menu links', () => {
     })
 
     it('@smoke visit appointments', () => {
-        cy.login();
-        
         cy.visit('appointments');
 
         cy.contains('h1', 'Citas')
@@ -45,8 +49,6 @@ describe('Navigation main menu links', () => {
     })
     
     it('@smoke visit clinical record', () => {
-        cy.login();
-        
         cy.visit('clinical-records');
 
         cy.contains('h1', 'Historial clínico')
