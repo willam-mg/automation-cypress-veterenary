@@ -2,34 +2,39 @@ pipeline {
     agent any
 
     parameters {
-        string(
-            name: 'SPEC',
-            defaultValue: 'cypress/e2e/**/*.cy.ts',
-            description: 'Ruta de los tests a ejecutar'
-        )
-        choice(
-            name: 'BROWSER',
-            choices: ['chrome', 'edge', 'firefox'],
-            description: 'Navegador para ejecutar Cypress'
-        )
+        string(name: 'SPEC', defaultValue: 'cypress/e2e/**/*.cy.ts', description: 'Ruta de los tests')
+        choice(name: 'BROWSER', choices: ['chrome', 'edge', 'firefox'], description: 'Navegador')
     }
 
     stages {
         stage('Install dependencies') {
             steps {
-                bat 'npm install'
+                bat '''
+                    set NO_COLOR=1
+                    set FORCE_COLOR=0
+                    npm install
+                '''
             }
         }
 
         stage('Verify Cypress') {
             steps {
-                bat 'npx cypress verify'
+                bat '''
+                    set NO_COLOR=1
+                    set FORCE_COLOR=0
+                    npx cypress verify
+                '''
             }
         }
 
         stage('Run tests') {
             steps {
-                bat "npx cypress run --browser ${params.BROWSER} --spec \"${params.SPEC}\""
+                bat """
+                    set NO_COLOR=1
+                    set FORCE_COLOR=0
+                    set TERM=dumb
+                    npx cypress run --browser ${params.BROWSER} --spec "${params.SPEC}"
+                """
             }
         }
     }
@@ -37,13 +42,6 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: 'cypress/screenshots/**/*, cypress/videos/**/*', allowEmptyArchive: true
-            junit 'cypress/results/*.xml'
-        }
-        success {
-            echo 'Tests ejecutados correctamente'
-        }
-        failure {
-            echo 'Algunos tests fallaron'
         }
     }
 }
