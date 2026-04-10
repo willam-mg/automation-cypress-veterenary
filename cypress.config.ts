@@ -31,4 +31,9 @@ export default defineConfig({
   env: {
     grepFilterSpecs: true,
   },
+  reporter: 'mocha-junit-reporter',
+  reporterOptions: {
+    mochaFile: 'cypress/results/results-[hash].xml',
+    toConsole: true
+  }
 });

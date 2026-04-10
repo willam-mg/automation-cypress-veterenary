@@ -499,3 +499,8 @@ Ejecutar smoke test
 ```
 npx cypress run --expose grep=@smoke
 ```
+
+### instalando reporte
+```
+npm install --save-dev mocha-junit-reporter
+```
