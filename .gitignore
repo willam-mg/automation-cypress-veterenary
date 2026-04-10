@@ -1,4 +1,9 @@
 node_modules/
 cypress/downloads/
-screenshots/
+cypress/report/allure-results/
+cypress/report/allure-report/
+cypress/report/mocha-results/
+cypress/screenshots/
+cypress/videos/
+
 cypress.env.json
